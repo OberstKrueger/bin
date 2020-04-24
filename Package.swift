@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "bin",
+    platforms: [.macOS("10.15")],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", .exact("0.0.5")),
         .package(url: "https://github.com/OberstKrueger/SwiftyTerminalColors", .exact("0.1.0"))
@@ -16,5 +17,13 @@ let package = Package(
                 .product(name: "SwiftyTerminalColors", package: "SwiftyTerminalColors")
             ]
         ),
+        .target(
+            name: "music",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "SwiftyTerminalColors", package: "SwiftyTerminalColors")
+            ]
+        ),
+
     ]
 )

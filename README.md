@@ -12,3 +12,12 @@ ARGUMENTS:
 
 OPTIONS:
   -h, --help              Show help information.
+
+## music
+
+USAGE: music [--debug] [--sort]
+
+OPTIONS:
+  -d, --debug             Prints debug information about the playlists.
+  -s, --sort              Sorts debug information by average playcount.
+  -h, --help              Show help information.
