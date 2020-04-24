@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "9f04d1ff1afbccd02279338a2c91e5f27c45e93a",
+          "version": "0.0.5"
+        }
+      },
+      {
+        "package": "SwiftyTerminalColors",
+        "repositoryURL": "https://github.com/OberstKrueger/SwiftyTerminalColors",
+        "state": {
+          "branch": null,
+          "revision": "446a7f35f94a4b2d867f4a70b42779b0baa5fe67",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
