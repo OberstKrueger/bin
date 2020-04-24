@@ -24,6 +24,12 @@ let package = Package(
                 .product(name: "SwiftyTerminalColors", package: "SwiftyTerminalColors")
             ]
         ),
+        .target(
+            name: "random",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ]
+        ),
 
     ]
 )

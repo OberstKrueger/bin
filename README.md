@@ -21,3 +21,15 @@ OPTIONS:
   -d, --debug             Prints debug information about the playlists.
   -s, --sort              Sorts debug information by average playcount.
   -h, --help              Show help information.
+
+## random
+
+USAGE: random [--repeat \<repeat\>] [\<first\>] [\<second\>]
+
+ARGUMENTS:
+  \<first\>
+  \<second\>
+
+OPTIONS:
+  -r, --repeat \<repeat\>    (default: 1)
+  -h, --help              Show help information.
