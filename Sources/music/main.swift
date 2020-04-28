@@ -58,19 +58,15 @@ struct Music: ParsableCommand {
             parsePlaylistDebug(music.exercise, "Exercise", sort)
             parsePlaylistDebug(music.meditation, "Meditation", sort)
             parsePlaylistDebug(music.work, "Work", sort)
-            parseAlbumDebug(music.albums)
         } else {
-            let album: String = "Album: \(parseAlbum(music.albums))"
             let exercise: String = "Exercise: \(parsePlaylist(music.exercise))"
             let meditation: String = "Meditation: \(parsePlaylist(music.meditation))"
             let work: String = "Work: \(parsePlaylist(music.work))"
 
-            print(album)
             print(exercise)
             print(meditation)
             print(work)
 
-            schedule(album)
             schedule(exercise)
             schedule(meditation)
             schedule(work)

@@ -22,10 +22,6 @@
 
 import SwiftyTerminalColors
 
-func parseAlbum(_ albums: [String]) -> String {
-    return albums.randomElement() ?? "No albums provided!"
-}
-
 func parsePlaylist(_ playlists: [String: [Int]]) -> String {
     var reducedPlaylists: [String: Float80] = [:]
 
@@ -37,19 +33,6 @@ func parsePlaylist(_ playlists: [String: [Int]]) -> String {
     case ...0: return "No playlists provided!"
     case ...3: return reducedPlaylists.sorted(by: {$0.value < $1.value})[0].key
     default:   return reducedPlaylists.sorted(by: {$0.value < $1.value})[...3].randomElement()!.key
-    }
-}
-
-/*
-
- DEBUG FUNCTIONS
-
- */
-
-func parseAlbumDebug(_ albums: [String]) {
-    if let album = albums.randomElement() {
-        print("Album".style(.bold))
-        print(album)
     }
 }
 

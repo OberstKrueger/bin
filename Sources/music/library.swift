@@ -27,8 +27,6 @@ enum PlaylistType: String, CaseIterable {
 }
 
 struct MusicLibrary {
-    var albums: [String]
-
     var exercise: [String: [Int]] = [:]
     var meditation: [String: [Int]] = [:]
     var work: [String: [Int]] = [:]
@@ -78,8 +76,5 @@ struct MusicLibrary {
                 }
             }
         }
-
-        // Load albums
-        albums = Array(Set(library.allMediaItems.compactMap({$0.album.title}))).sorted()
     }
 }
