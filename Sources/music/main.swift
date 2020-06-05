@@ -39,13 +39,14 @@ struct Music: ParsableCommand {
     var sort: Bool
 
     func run() throws {
+        let ignored: [String] = ["Maintenance"]
         let music: MusicLibrary
 
         do {
             music = try MusicLibrary()
         } catch let error as LibraryError {
             switch error {
-            case.emptyLibrary: print("The Music.app library is empty.")
+            case .emptyLibrary: print("The Music.app library is empty.")
             case .libraryNotLoaded: print("Unable to load library.")
             }
             throw ExitCode.failure
@@ -55,23 +56,21 @@ struct Music: ParsableCommand {
         }
 
         if debug {
-            parsePlaylistDebug(music.exercise, "Exercise", sort)
-            parsePlaylistDebug(music.meditation, "Meditation", sort)
-            parsePlaylistDebug(music.work, "Work", sort)
+            for (count, (key, value)) in music.sortedPlaylists.enumerated() {
+                if count == music.playlists.count - 1 {
+                    parsePlaylistDebug(name: key, playlists: value, sort: sort, last: true)
+                } else {
+                    parsePlaylistDebug(name: key, playlists: value, sort: sort)
+                }
+            }
         } else {
-            let exercise: String = "Exercise: \(parsePlaylist(music.exercise))"
-            let meditation: String = "Meditation: \(parsePlaylist(music.meditation))"
-            let work: String = "Work: \(parsePlaylist(music.work))"
+            for (key, value) in music.sortedPlaylists.filter({ignored.contains($0.key) == false}) {
+                let playlist = parsePlaylist(name: key, playlists: value)
 
-            print(exercise)
-            print(meditation)
-            print(work)
-
-            schedule(exercise)
-            schedule(meditation)
-            schedule(work)
+                print(playlist)
+                schedule(playlist)
+            }
         }
-
     }
 }
 

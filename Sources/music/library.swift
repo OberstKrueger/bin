@@ -20,32 +20,15 @@ enum LibraryError: Error {
     case libraryNotLoaded
 }
 
-enum PlaylistType: String, CaseIterable {
-    case exercise   = "Exercise"
-    case meditation = "Meditation"
-    case work       = "Work"
-}
-
 struct MusicLibrary {
-    var exercise: [String: [Int]] = [:]
-    var meditation: [String: [Int]] = [:]
-    var work: [String: [Int]] = [:]
+    var playlists: [String: [(title: String, counts: [Int])]] = [:]
+
+    var sortedPlaylists: [(key: String, value: [(title: String, counts: [Int])])] {
+        return playlists.sorted(by: {$0.key < $1.key})
+    }
 
     init() throws {
-        let ignored: [String] = [
-            "Audiobooks",
-            "Home Videos",
-            "Library",
-            "Movies",
-            "Music Videos",
-            "Music",
-            "Podcasts",
-            "Purchased",
-            "TV & Movies",
-            "TV Shows"
-        ]
         let library: ITLibrary
-        var folders: [PlaylistType: [ITLibMediaItem]] = [:]
 
         // Loads library
         if let checkLibrary = try? ITLibrary(apiVersion: "1.0", options: .lazyLoadData) {
@@ -55,26 +38,14 @@ struct MusicLibrary {
         }
 
         // Makes sure library is not empty
-        if library.allMediaItems.count == 0 { throw LibraryError.emptyLibrary }
+        if library.allMediaItems.count == 0 { throw LibraryError.emptyLibrary}
 
         // Loads master playlist songs into temporary storage
-        for playlist in library.allPlaylists.filter({ignored.contains($0.name) == false}) {
-            switch PlaylistType(rawValue: playlist.name) {
-            case .some(let type):
-                folders[type] = playlist.items
-            case .none:
-                for item in playlist.items {
-                    for type in PlaylistType.allCases {
-                        if folders[type, default: []].contains(item) {
-                            switch type {
-                            case .exercise: exercise[playlist.name, default: []].append(item.playCount)
-                            case .meditation: meditation[playlist.name, default: []].append(item.playCount)
-                            case .work: work[playlist.name, default: []].append(item.playCount)
-                            }
-                        }
-                    }
-                }
-            }
+        for playlist in library.allPlaylists.filter({$0.name.contains(" - ")}) {
+            let count = playlist.items.map({$0.playCount})
+            let elements = playlist.name.components(separatedBy: " - ")
+
+            playlists[elements[0], default: []].append((elements[1], count))
         }
     }
 }

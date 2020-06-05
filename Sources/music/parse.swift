@@ -22,7 +22,7 @@
 
 import SwiftyTerminalColors
 
-func parsePlaylist(_ playlists: [String: [Int]]) -> String {
+func parsePlaylist(name: String, playlists: [(title: String, counts: [Int])]) -> String {
     var reducedPlaylists: [String: Float80] = [:]
 
     for (key, value) in playlists {
@@ -31,12 +31,12 @@ func parsePlaylist(_ playlists: [String: [Int]]) -> String {
 
     switch reducedPlaylists.count {
     case ...0: return "No playlists provided!"
-    case ...3: return reducedPlaylists.sorted(by: {$0.value < $1.value})[0].key
-    default:   return reducedPlaylists.sorted(by: {$0.value < $1.value})[...3].randomElement()!.key
+    case ...4: return "\(name): \(reducedPlaylists.sorted(by: {$0.value < $1.value})[0].key)"
+    default:   return "\(name): \(reducedPlaylists.sorted(by: {$0.value < $1.value})[...3].randomElement()!.key)"
     }
 }
 
-func parsePlaylistDebug(_ playlists: [String: [Int]], _ name: String, _ sortByPlays: Bool) {
+func parsePlaylistDebug(name: String, playlists: [(title: String, counts: [Int])], sort: Bool, last: Bool = false) {
     var reducedPlaylists: [String: Float80] = [:]
 
     for (key, value) in playlists {
@@ -44,8 +44,8 @@ func parsePlaylistDebug(_ playlists: [String: [Int]], _ name: String, _ sortByPl
     }
 
     print(name.style(.bold))
-    for (key, value) in reducedPlaylists.sorted(by: sortByPlays ? {$0.value < $1.value} : {$0.key < $1.key}) {
+    for (key, value) in reducedPlaylists.sorted(by: sort ? {$0.value < $1.value} : {$0.key < $1.key} ) {
         print("\(key) => \(value)")
     }
-    print("\n", terminator: "")
+    if last == false { print("") }
 }
