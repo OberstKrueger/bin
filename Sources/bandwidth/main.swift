@@ -44,10 +44,10 @@ struct Value {
 
 struct Bandwidth: ParsableCommand {
     @Argument()
-    var inputs: [UInt]
+    var inputs: [UInt] = []
 
-    @Option(name: .shortAndLong, default: 1_229, help: "Monthly bandwidth cap set by ISP.")
-    var cap: Float64
+    @Option(name: .shortAndLong, help: "Monthly bandwidth cap set by ISP.")
+    var cap: Float64 = 1_229
 
     func run() {
         let days: (current: Int, total: Int) = calculateDays()

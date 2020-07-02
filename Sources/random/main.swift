@@ -31,19 +31,19 @@
 import ArgumentParser
 
 struct Random: ParsableCommand {
-    @Option(name: [.customShort("r"), .customLong("repeat")], default: 1)
-    var times: UInt
+    @Option(name: [.customShort("r"), .customLong("repeat")])
+    var times: UInt = 1
 
-    @Argument(default: 255)
-    var first: UInt?
+    @Argument()
+    var first: UInt = 255
 
-    @Argument(default: 0)
-    var second: UInt?
+    @Argument()
+    var second: UInt = 0
 
     func run() {
         for _ in 1...times {
-            let minimum = min(first!, second!)
-            let maximum = max(first!, second!)
+            let minimum = min(first, second)
+            let maximum = max(first, second)
             print(UInt.random(in: minimum...maximum))
         }
     }

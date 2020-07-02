@@ -33,10 +33,10 @@ import ArgumentParser
 
 struct Music: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Prints debug information about the playlists.")
-    var debug: Bool
+    var debug: Bool = false
 
     @Flag(name: .shortAndLong, help: "Sorts debug information by average playcount.")
-    var sort: Bool
+    var sort: Bool = false
 
     func run() throws {
         let ignored: [String] = ["Maintenance"]
