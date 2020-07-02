@@ -37,22 +37,22 @@ struct Value {
     var total: Float64
 }
 
+/*
+ @Flag(name: .shortAndLong, help: "Prints debug information about the playlists.")
+ var debug: Bool
+ */
+
 struct Bandwidth: ParsableCommand {
     @Argument()
     var inputs: [UInt]
 
+    @Option(name: .shortAndLong, default: 1_229, help: "Monthly bandwidth cap set by ISP.")
+    var cap: Float64
+
     func run() {
         let days: (current: Int, total: Int) = calculateDays()
-        var values: [Value] = [
-            Value(base: true, current: 0, total: 0_128),
-            Value(base: true, current: 0, total: 0_256),
-            Value(base: true, current: 0, total: 0_384),
-            Value(base: true, current: 0, total: 0_512),
-            Value(base: true, current: 0, total: 0_640),
-            Value(base: true, current: 0, total: 0_768),
-            Value(base: true, current: 0, total: 0_896),
-            Value(base: true, current: 0, total: 1_024)
-        ]
+        var values: [Value] = stride(from: 0.1, through: 1.0, by: 0.1)
+                              .map({Value(base: true, current: 0, total: cap * $0)})
 
         // Appends the contents of all inputs.
         values.append(contentsOf: inputs.map({Value(base: false, current: Float64($0), total: 0)}))
@@ -74,10 +74,12 @@ struct Bandwidth: ParsableCommand {
 
             switch value.base {
             case false:
+                let warning: Float64 = 0.9 * cap
+
                 switch value.total {
-                case ..<0_896: print(output.color(.green).style(.bold))
-                case ..<1_024: print(output.color(.yellow).style(.bold))
-                default:       print(output.color(.red).style(.bold))
+                case ..<warning: print(output.color(.green).style(.bold))
+                case ..<cap:     print(output.color(.yellow).style(.bold))
+                default:         print(output.color(.red).style(.bold))
                 }
             case true:
                 print(output)
