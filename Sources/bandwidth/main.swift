@@ -74,7 +74,7 @@ struct Bandwidth: ParsableCommand {
 
             switch value.base {
             case false:
-                let warning: Float64 = 0.9 * cap
+                let warning: Float64 = 0.8 * cap
 
                 switch value.total {
                 case ..<warning: print(output.color(.green).style(.bold))
