@@ -18,13 +18,6 @@ let package = Package(
             ]
         ),
         .target(
-            name: "music",
-            dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "SwiftyTerminalColors", package: "SwiftyTerminalColors")
-            ]
-        ),
-        .target(
             name: "random",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
