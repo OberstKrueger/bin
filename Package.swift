@@ -6,7 +6,7 @@ let package = Package(
     name: "bin",
     platforms: [.macOS("10.15")],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", .exact("0.3.0")),
+        .package(url: "https://github.com/apple/swift-argument-parser", .exact("0.3.1")),
         .package(url: "https://github.com/OberstKrueger/SwiftyTerminalColors", .exact("0.1.0"))
     ],
     targets: [
